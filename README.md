@@ -2,7 +2,7 @@
 
 Load **environment** from file and **run** any program with this loaded environment.
 
-This is useful if you want to easily run program with different environment, or troubleshoot systemd services which reads /etc/
+This is useful if you want to easily run program with different environment, or troubleshoot systemd services which reads environment from /etc/default/ files.
 
 ## Installation
 ~~~shell
@@ -29,6 +29,15 @@ some args
 $ envirun.py /tmp/x2.env /tmp/x.sh some other args --foo --bar
 X: 2
 some other args --foo --bar
+~~~
+
+## Source code
+See environ.py, it's **very** simple. Main code is just three lines:
+
+~~~python3
+load_dotenv(dotenv_path=sys.argv[1], override=True)
+rc = subprocess.run(sys.argv[2:])
+sys.exit(rc.returncode)
 ~~~
 
 ## More details
